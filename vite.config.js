@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
-import solid from 'vite-plugin-solid'
+import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [solid(),tailwindcss(),],
+  plugins: [react(),tailwindcss(),],
 })
