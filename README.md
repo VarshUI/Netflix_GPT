@@ -2,8 +2,8 @@
 
 - Vite bundler
 - configured TailwindCSS
-
-...
+- Header
+- Login Form
 
 # Features 
 - Login/Sign up 
