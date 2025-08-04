@@ -1,7 +1,7 @@
 # NetFlix GPT
 
--- Vite bundler
--- configured TailwindCSS
+- Vite bundler
+- configured TailwindCSS
 
 ...
 
