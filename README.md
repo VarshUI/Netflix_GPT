@@ -3,7 +3,10 @@
 - Vite bundler
 - configured TailwindCSS
 - Header
+- Routing of App
 - Login Form
+- Sign-up Form
+- Form Validation and useRef()
 
 # Features 
 - Login/Sign up 

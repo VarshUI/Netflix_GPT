@@ -1,12 +1,21 @@
 import React from 'react'
 import Header from './Header'
-import { useState } from 'react'
-import SignUp from './SignUp'
+import { useState, useRef } from 'react'
+import validate from '../utils/validate'  
 
 const Login = () => {
   const [isSignIn, setisSignIn]=useState("isSignIn")
+  const [errorMessage, setErrorMessage]=useState("");
   const handleToggle = ()=>{
     setisSignIn(!isSignIn);
+  }
+
+  const email = useRef(null);
+  const password = useRef(null);
+
+  const handleButtonClick = ()=>{
+     const message =  validate(email.current.value, password.current.value);
+    setErrorMessage(message);
   }
   return (
     <div className="relative h-screen w-screen bg-black">
@@ -19,23 +28,26 @@ const Login = () => {
         />
         <div className="absolute inset-0 bg-black opacity-30"></div> 
       </div>
-    <form className="absolute z-10 p-12  bg-[rgba(0,0,0,0.5)] w-3/12 my-36 mx-auto left-0 right-0 text-white rounded-md">
+    <form onSubmit={(e)=>e.preventDefault()} className="absolute z-10 p-12  bg-[rgba(0,0,0,0.5)] w-3/12 my-36 mx-auto left-0 right-0 text-white rounded-md">
 
         <h2 className="font-bold text-3xl pb-6">{isSignIn?"Sign In":"Sign-up"}</h2>
          {!isSignIn&&(
           <input type="text" placeholder='Enter your Full Name' className='w-full p-3 my-2 bg-[#333] text-white rounded' ></input>
         )}
         <input
-          type="text"
+          ref={email}
+          type="text" 
           placeholder="Email Address"
           className="w-full p-3 my-2 bg-[#333] text-white rounded"
         />
         <input
+          ref={password}
           type="password"
           placeholder="Password"
           className="w-full p-3 my-2 bg-[#333] text-white rounded"
         />
-        <button className=" cursor-pointer w-full p-3 my-4 bg-red-600 hover:bg-red-700 rounded font-semibold">
+          <p className='font-bold text-red-700'>{errorMessage}</p>
+        <button onClick={handleButtonClick} className=" cursor-pointer w-full p-3 my-4 bg-red-600 hover:bg-red-700 rounded font-semibold">
           {isSignIn?"Sign In":"Sign-up"}
         </button>
       <p className="cursor-pointer"onClick={handleToggle}>{!isSignIn?"Already Registered? Sign In":"New to Netflix? Sign up now."}</p>
