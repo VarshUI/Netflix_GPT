@@ -2,20 +2,46 @@ import React from 'react'
 import Header from './Header'
 import { useState, useRef } from 'react'
 import validate from '../utils/validate'  
+import {createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/firebase"
 
 const Login = () => {
-  const [isSignIn, setisSignIn]=useState("isSignIn")
+  const [isSignIn, setisSignIn]=useState(true)
   const [errorMessage, setErrorMessage]=useState("");
   const handleToggle = ()=>{
     setisSignIn(!isSignIn);
   }
 
+  const userName = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
   const handleButtonClick = ()=>{
      const message =  validate(email.current.value, password.current.value);
     setErrorMessage(message);
+    if(message) return
+    if(!isSignIn){
+      //sign-up logic
+      createUserWithEmailAndPassword(auth, 
+        email.current.value, 
+        password.current.value)
+      .then((userCredential) => {
+    // Signed up 
+      const user = userCredential.user;
+      console.log(user)
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    setErrorMessage(errorCode + " - " + errorMessage)
+    // ..
+  });
+
+    }else{
+      //sign-up logic
+    }
+
   }
   return (
     <div className="relative h-screen w-screen bg-black">
@@ -32,7 +58,7 @@ const Login = () => {
 
         <h2 className="font-bold text-3xl pb-6">{isSignIn?"Sign In":"Sign-up"}</h2>
          {!isSignIn&&(
-          <input type="text" placeholder='Enter your Full Name' className='w-full p-3 my-2 bg-[#333] text-white rounded' ></input>
+          <input ref={userName} type="text" placeholder='Enter your Full Name' className='w-full p-3 my-2 bg-[#333] text-white rounded' ></input>
         )}
         <input
           ref={email}
