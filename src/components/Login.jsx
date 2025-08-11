@@ -2,7 +2,7 @@ import React from 'react'
 import Header from './Header'
 import { useState, useRef } from 'react'
 import validate from '../utils/validate'  
-import {createUserWithEmailAndPassword } from "firebase/auth";
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase"
 
 const Login = () => {
@@ -39,7 +39,17 @@ const Login = () => {
   });
 
     }else{
-      //sign-up logic
+      //sign-in logic
+      signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const userSigned = userCredential.user;
+    console.log(userSigned)
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
     }
 
   }
