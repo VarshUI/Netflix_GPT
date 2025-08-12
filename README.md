@@ -7,6 +7,9 @@
 - Login Form
 - Sign-up Form
 - Form Validation and useRef()
+- Firebase deployment
+- Create Signup User Account
+- Implement Sign-in user API
 
 # Features 
 - Login/Sign up 
